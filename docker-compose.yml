@@ -1,0 +1,20 @@
+services:
+  closedskynms:
+    image: ghcr.io/nyx-telecom/closedskynms:latest
+    restart: unless-stopped
+    ports:
+      - "9052:9052/udp"
+      - "2323:2323/tcp"
+    expose:
+      - "9052"
+      - "2323"
+    volumes:
+      - ./csnms/data:/app/data
+    environment:
+      - DOTNET_ENVIRONMENT=Production
+    networks:
+      - nms-network
+
+networks:
+  nms-network:
+    driver: bridge
